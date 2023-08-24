@@ -9,14 +9,11 @@
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("redirectLink").addEventListener("click", function() {
-            var img = new Image();
-            img.src = "https://travelpirates.hometogo.com/account/<>><";
-            img.setAttribute("style", "display:none;");
-            img.setAttribute("referrerpolicy", "no-referrer");
-            document.body.appendChild(img);
+            // Redirect to the target URL
+            window.location.href = "http://travelpirates.hometogo.com/account/><>";
         });
         
-        // Simulate the hover event after a delay
+        // After a delay, simulate the hover event on their domain
         setTimeout(function() {
             var hoverEvent = new Event("mouseover");
             var link = document.getElementById("redirectLink");
